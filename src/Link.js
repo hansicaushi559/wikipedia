@@ -1,8 +1,12 @@
 import React from 'react'
 
-function Link() {
+function Link({data}) {
+
+
   return (
-    <div>Link: </div>
+    <a className='search-box' href={data}>
+        {data}
+    </a>
   )
 }
 

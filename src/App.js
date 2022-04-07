@@ -1,7 +1,8 @@
 import './App.css';
 import {useState, useEffect} from 'react'
 import axios from 'axios';
-import search from './search.svg'
+import Link from './Link'
+
 
 
 
@@ -9,7 +10,6 @@ function App() {
   const [wikiData, setWikiData] = useState([])
   const [searchTerm, setSearchTerm] = useState ('')
   const [isLoaded, setIsLoaded] = useState(false)
-  const [error, setError] = useState(null);
 
 
   const getData = async () => {
@@ -18,46 +18,58 @@ function App() {
         params: {
           origin: '*',
           action: 'opensearch',
-          search: {searchTerm}
+          search: searchTerm
         }
       });
       setIsLoaded(true)
       setWikiData(data.data[3].slice(0 , 5))
     } catch (error) {
       setIsLoaded(true)
-      setError(error)
+      console.log(error)
     }
   }
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [searchTerm])
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value)
-  }
+  } 
+  
 
-  if (error) { return 
-    <div>
-      Error: {error.message}
-    </div> } else if (!isLoaded) {
-      return <div>Loading...</div>;
-  } else {
-    return (
+
+  if (!isLoaded) {
+    return ( 
+      <div className="ring">Loading
+        <span></span>
+      </div>
+    )} else {
+      return(
       <div className="App" >
-        <input
+          <h1>Wikipedia Search</h1>
+          <input
           type='text'
-          placeholder='Search'
+          placeholder=' Search ...'
           value={searchTerm}
-          onChange={handleChange}
-        />
-        <img src={search}
-          onClick={() => setWikiData(searchTerm)} />
+          onChange={handleChange}/>
+  {
+    wikiData?.length > 1 && searchTerm.length > 3 ?
+      (
+        <div className='container'>
+          {wikiData.map(data => (
+            <Link data={data} searchTerm={searchTerm} />)
+          )}
         </div>
-        );
-  }
-
-
+      ) : (
+        <div className='empty'>
+          <h2>No Search Found</h2>
+        </div>
+        )
+      }
+    </div>
+    )}
+      
+      
 }
-
-export default App;
+  export default App;
