@@ -1,12 +1,15 @@
 import React from 'react'
+import './link.css'
 
 function Link({data}) {
 
-
   return (
-    <a className='search-box' href={data}>
-        {data}
-    </a>
+    <div className='results'>
+      <h2>Title</h2>
+      <div className='links-container'>
+        <a href={data}>Go to wikipedia Page</a>
+      </div>
+    </div>
   )
 }
 

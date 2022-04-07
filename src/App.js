@@ -10,7 +10,8 @@ function App() {
   const [wikiData, setWikiData] = useState([])
   const [searchTerm, setSearchTerm] = useState ('')
   const [isLoaded, setIsLoaded] = useState(false)
-
+  const [title, setTitle] = useState([])
+  
 
   const getData = async () => {
     try {
@@ -23,6 +24,8 @@ function App() {
       });
       setIsLoaded(true)
       setWikiData(data.data[3].slice(0 , 5))
+      setTitle(data.data[1].slice(0, 5))
+      console.log(title)
     } catch (error) {
       setIsLoaded(true)
       console.log(error)
@@ -58,7 +61,7 @@ function App() {
       (
         <div className='container'>
           {wikiData.map(data => (
-            <Link data={data} searchTerm={searchTerm} />)
+            <Link data={data} />)
           )}
         </div>
       ) : (
