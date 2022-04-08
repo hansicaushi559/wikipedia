@@ -1,16 +1,18 @@
-import React from 'react'
-import './link.css'
+import React from "react";
+import "./link.css";
 
-function Link({data}) {
-
+function Link({ data }) {
   return (
-    <div className='results'>
-      <h2>Title</h2>
-      <div className='links-container'>
-        <a href={data}>Go to wikipedia Page</a>
+    <div className="results">
+      <h2>{data.wiki_title}</h2>
+
+      <div className="links-container">
+        <a href={data.wiki_link} target="_blank">
+          Go to wikipedia Page
+        </a>
       </div>
     </div>
-  )
+  );
 }
 
-export default Link
+export default Link;
